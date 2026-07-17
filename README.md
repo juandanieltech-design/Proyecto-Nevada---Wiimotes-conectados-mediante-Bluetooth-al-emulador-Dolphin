@@ -715,3 +715,215 @@ La investigación demostró que cambiar hardware podía mejorar la compatibilida
 - En proyectos de hardware real, los problemas normalmente aparecen por la interacción entre varios componentes, no por una única causa.
 
 ---
+
+---
+
+# Fase 5 – Primer éxito con Real Wii Remote y descubrimiento de la limitación del puntero
+
+## Objetivo
+
+Después de adquirir el adaptador Bluetooth dedicado, el siguiente objetivo fue comprobar si era posible utilizar el modo **Real Wii Remote** de Dolphin.
+
+La hipótesis era que un adaptador Bluetooth dedicado podría ofrecer una comunicación más cercana al hardware original de una consola Wii.
+
+---
+
+# Preparación del entorno
+
+## Desactivación del Bluetooth interno
+
+Para evitar interferencias entre varios controladores Bluetooth, inicialmente se decidió desactivar el Bluetooth integrado del portátil.
+
+El objetivo era utilizar únicamente el adaptador Bluetooth externo dedicado.
+
+Esta decisión permitió controlar mejor qué hardware estaba utilizando Dolphin durante las pruebas.
+
+La configuración buscaba reproducir un escenario más parecido al recomendado para Real Wii Remote:
+
+```
+Dolphin
+   |
+   |
+Adaptador Bluetooth dedicado
+   |
+   |
+Nintendo Wii Remote
+```
+
+---
+
+# Primer resultado positivo
+
+## Problema inicial
+
+Antes de utilizar el adaptador dedicado, el modo Real Wii Remote de Dolphin no conseguía detectar correctamente los Wiimote disponibles.
+
+Aunque los mandos podían ser reconocidos por Linux, Dolphin no lograba establecer la comunicación esperada en modo Real Wii Remote.
+
+---
+
+## Prueba con el adaptador Bluetooth dedicado
+
+Después de configurar el nuevo adaptador, se realizó una nueva prueba.
+
+Durante el inicio de **New Super Mario Bros. Wii**, se utilizó el botón de sincronización del Wiimote.
+
+Esta vez ocurrió un cambio fundamental:
+
+Dolphin consiguió detectar correctamente los mandos físicos.
+
+No solamente se produjo una conexión Bluetooth.
+
+El Wiimote comenzó a comportarse como un mando real de Wii.
+
+---
+
+# Primera prueba de jugabilidad real
+
+## New Super Mario Bros. Wii
+
+El resultado fue la primera gran victoria del proyecto.
+
+El mando podía controlar el juego correctamente.
+
+Se verificaron funciones como:
+
+- Movimiento del personaje.
+- Uso de botones principales.
+- Detección del mando como Wiimote real.
+- Movimiento mediante inclinación.
+
+Uno de los momentos más importantes fue comprobar el movimiento de giro de Mario.
+
+El control por movimiento funcionaba.
+
+Especialmente, el giro asociado al Power-Up Helicóptero confirmó que:
+
+- El acelerómetro estaba siendo leído correctamente.
+- Dolphin recibía información del movimiento.
+- El Wiimote físico estaba siendo utilizado de forma funcional.
+
+Este fue el primer punto donde Proyecto Nevada pasó de una investigación de conexión Bluetooth a una experiencia real de juego.
+
+---
+
+# Prueba con Super Mario Galaxy
+
+## Objetivo
+
+Después del éxito con New Super Mario Bros. Wii, el siguiente paso lógico era probar un título que dependiera más intensamente de las capacidades del Wiimote.
+
+Se seleccionó:
+
+**Super Mario Galaxy**
+
+debido a sus requisitos de:
+
+- Puntero infrarrojo.
+- Movimiento.
+- Nunchuk.
+- Acciones específicas mediante apuntado.
+
+---
+
+# Problema encontrado
+
+Aunque Dolphin detectaba correctamente:
+
+- Wiimote.
+- Nunchuk.
+- Movimiento básico.
+
+La configuración Real Wii Remote todavía no ofrecía el puntero.
+
+El mando funcionaba parcialmente, pero faltaba una de las funciones esenciales de la experiencia Wii:
+
+```
+Movimiento:
+✅ Funcionando
+
+Botones:
+✅ Funcionando
+
+Nunchuk:
+✅ Funcionando
+
+Puntero infrarrojo:
+❌ No disponible
+```
+
+---
+
+# Investigación de la Sensor Bar
+
+Durante esta etapa se comprobó físicamente el funcionamiento de la barra sensora.
+
+Proyecto Nevada contaba con una Sensor Bar original de Wii U.
+
+La barra recibía alimentación correctamente.
+
+Incluso se realizó una comprobación adicional encendiendo la Wii U para verificar que la consola original reconocía correctamente el accesorio.
+
+La Sensor Bar funcionaba.
+
+Sin embargo, esto no solucionaba el problema.
+
+---
+
+# Descubrimiento importante
+
+La investigación permitió comprender una diferencia fundamental:
+
+La Sensor Bar no transmite información al ordenador.
+
+La barra únicamente genera puntos de luz infrarroja.
+
+El Wiimote utiliza su cámara infrarroja para detectar esos puntos y calcular el apuntado.
+
+Por lo tanto:
+
+Tener una Sensor Bar encendida no garantiza que Dolphin pueda utilizar el puntero.
+
+El problema no estaba en la barra.
+
+El problema estaba en la comunicación completa entre:
+
+- Wiimote.
+- Dolphin.
+- Sistema de entrada.
+- Configuración Real Wii Remote.
+
+---
+
+# Resultado de la fase
+
+Esta fase fue un punto de inflexión para Proyecto Nevada.
+
+Se consiguió por primera vez:
+
+✅ Conectar Wiimotes originales mediante Dolphin.  
+✅ Utilizar modo Real Wii Remote.  
+✅ Controlar juegos reales.  
+✅ Usar movimiento mediante acelerómetro.  
+✅ Utilizar Nunchuk.  
+
+Pero también apareció una nueva limitación:
+
+❌ El puntero infrarrojo todavía no funcionaba.
+
+La investigación continuaría enfocándose en comprender la diferencia entre conexión del mando y emulación completa de la experiencia Wii.
+
+---
+
+# Lecciones aprendidas
+
+- Un adaptador Bluetooth dedicado puede cambiar completamente la compatibilidad con Real Wii Remote.
+- La conexión Bluetooth por sí sola no garantiza una experiencia Wii completa.
+- El acelerómetro y el puntero infrarrojo son sistemas independientes.
+- Una Sensor Bar funcionando correctamente no significa automáticamente que Dolphin recibirá el puntero.
+- La experiencia completa de Wii requiere resolver tres elementos diferentes:
+  - Comunicación Bluetooth.
+  - Sensores de movimiento.
+  - Entrada infrarroja.
+
+---
