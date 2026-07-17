@@ -18,10 +18,6 @@ Comprobado:
 - Uso de Nunchuk.
 - Comunicación funcional con Dolphin Emulator.
 
-Archivo esperado:
-
-
-new-super-mario-bros-motion.mp4
 
 
 ---
@@ -38,24 +34,5 @@ Comprobado:
 - Puntero funcionando dentro de Dolphin Emulator.
 - Configuración final utilizando Wiimote físico con Emulated Wii Remote.
 
-Archivo esperado:
-
-
-super-mario-galaxy-pointer.mp4
-
 
 ---
-
-## Nota
-
-Los videos sirven como evidencia complementaria de las pruebas realizadas.
-
-Las capturas de pantalla documentan configuraciones y estados del sistema, mientras que los videos demuestran el funcionamiento real del hardware durante la emulación.
-
-Cuando subas los videos:
-
-Subes:
-docs/videos/new-super-mario-bros-motion.mp4
-docs/videos/super-mario-galaxy-pointer.mp4
-Puedes borrar:
-docs/videos/README.md
