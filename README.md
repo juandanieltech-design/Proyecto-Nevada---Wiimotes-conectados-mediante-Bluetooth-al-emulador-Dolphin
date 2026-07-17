@@ -927,3 +927,188 @@ La investigación continuaría enfocándose en comprender la diferencia entre co
   - Entrada infrarroja.
 
 ---
+---
+
+# Fase 6 – Pruebas en Windows y descubrimiento de la configuración correcta
+
+## Objetivo
+
+Después de los problemas encontrados durante la investigación en Linux, se decidió realizar una prueba temporal utilizando Windows.
+
+En ese momento surgió una nueva hipótesis:
+
+> El problema podía estar relacionado con Linux, sus permisos, sus controladores Bluetooth o la forma en que Dolphin interactuaba con el sistema.
+
+El objetivo era comprobar si un entorno diferente permitía obtener una configuración funcional con menos obstáculos.
+
+---
+
+# Cambio temporal de plataforma
+
+## Motivo
+
+Durante las pruebas en Linux aparecieron varios desafíos:
+
+- Configuración de permisos para Bluetooth.
+- Diferencias entre BlueZ y Dolphin.
+- Problemas iniciales utilizando Real Wii Remote.
+- Dificultad para obtener una experiencia completa con movimiento y puntero.
+
+Además, Windows ofrecía una instalación más directa de Dolphin y una configuración inicial aparentemente más sencilla.
+
+Por este motivo se decidió utilizar Windows como entorno de comparación.
+
+---
+
+# Hardware utilizado
+
+## Sistema Windows
+
+**Equipo:**
+
+[Completar especificaciones del equipo Windows]
+
+**Sistema operativo:**
+
+Windows [versión]
+
+## Adaptador Bluetooth
+
+Se utilizó el mismo adaptador Bluetooth dedicado adquirido durante Proyecto Nevada.
+
+```
+Realtek Semiconductor Corp.
+Bluetooth 5.3 Radio
+USB ID: 0bda:a729
+```
+
+El objetivo era comprobar si el mismo hardware tenía un comportamiento diferente al utilizar otro sistema operativo.
+
+---
+
+# Primer resultado: Real Wii Remote tampoco funcionó inmediatamente
+
+La primera prueba consistió en repetir la estrategia utilizada anteriormente:
+
+```
+Dolphin → Real Wii Remote
+```
+
+Sin embargo, el resultado fue inesperado.
+
+El Wiimote físico tampoco era detectado correctamente como Real Wii Remote de manera inmediata.
+
+Esto fue un descubrimiento importante.
+
+La hipótesis inicial de que "Linux era el problema principal" comenzó a perder fuerza.
+
+El comportamiento era similar:
+
+- El hardware Bluetooth funcionaba.
+- El Wiimote podía comunicarse.
+- Pero la experiencia completa no aparecía automáticamente.
+
+---
+
+# Descubrimiento de Emulated Wii Remote con hardware real
+
+Durante esta etapa se encontró una configuración de Dolphin que utilizaba:
+
+```
+Emulated Wii Remote
+```
+
+con una configuración predeterminada que incluía funciones esenciales:
+
+- Acelerómetro.
+- Movimiento.
+- Puntero.
+- Configuración compatible con juegos de Wii.
+
+Inicialmente existía una idea equivocada:
+
+> Emulated Wii Remote significa utilizar teclado, mouse o un mando convencional.
+
+Las pruebas demostraron que esto no era correcto.
+
+Un Nintendo Wii Remote físico también puede utilizarse dentro de este modo.
+
+La diferencia no está en el mando utilizado, sino en la forma en que Dolphin procesa la información.
+
+---
+
+# Prueba con Super Mario Galaxy
+
+## Resultado
+
+Con esta configuración fue posible ejecutar Super Mario Galaxy utilizando el Wiimote físico.
+
+Se consiguió:
+
+- Movimiento mediante el Wiimote.
+- Uso del Nunchuk.
+- Uso del puntero infrarrojo.
+- Control suficiente para jugar.
+
+Además ocurrió un avance importante:
+
+El punto de referencia del puntero, que anteriormente permanecía estático, comenzó finalmente a responder al movimiento del mando.
+
+Esto confirmó que:
+
+- La cámara infrarroja del Wiimote estaba funcionando.
+- La Sensor Bar estaba siendo utilizada.
+- Dolphin estaba recibiendo la información necesaria.
+
+---
+
+# Limitaciones encontradas
+
+Aunque la solución era funcional, todavía existían problemas.
+
+El principal inconveniente fue el comportamiento del puntero.
+
+Problemas observados:
+
+- Puntero inestable.
+- Movimiento irregular.
+- Necesidad de ajustes adicionales.
+
+La experiencia era jugable, pero todavía estaba lejos de la precisión de una consola Wii original.
+
+---
+
+# Conclusión de la comparación Linux vs Windows
+
+Esta fase permitió corregir una hipótesis inicial.
+
+Durante la investigación se pensó que Linux podía ser la causa principal de los problemas.
+
+Sin embargo, las pruebas demostraron que:
+
+**Windows no proporcionó una solución diferente a Linux.**
+
+La configuración que permitió utilizar el Wiimote correctamente mediante:
+
+```
+Wiimote físico + Emulated Wii Remote
+```
+
+también estaba disponible en Linux.
+
+El avance no ocurrió por cambiar de sistema operativo.
+
+El avance ocurrió al descubrir la configuración correcta dentro de Dolphin.
+
+---
+
+# Lecciones aprendidas
+
+- Cambiar de sistema operativo no siempre resuelve un problema de configuración.
+- Dolphin ofrece múltiples formas de utilizar un Wiimote físico.
+- Real Wii Remote no es obligatoriamente la mejor solución.
+- Emulated Wii Remote puede utilizar hardware real.
+- La configuración del emulador puede ser más importante que el sistema operativo.
+- Las hipótesis deben modificarse cuando las pruebas muestran nuevos resultados.
+
+---
