@@ -1303,3 +1303,266 @@ La solución fue comprender correctamente cada componente del sistema.
 - Una configuración correcta puede ser más importante que cambiar de hardware.
 
 ---
+
+---
+
+# Conclusión del experimento
+
+Proyecto Nevada comenzó como una investigación para resolver una pregunta sencilla:
+
+> ¿Es posible utilizar un Nintendo Wii Remote original en un sistema Linux moderno para jugar títulos de Nintendo Wii mediante Dolphin Emulator?
+
+La respuesta obtenida durante el desarrollo fue:
+
+**Sí, es posible.**
+
+Sin embargo, el proceso demostró que la dificultad no estaba únicamente en conectar el mando.
+
+El verdadero desafío consistía en comprender la interacción entre múltiples componentes:
+
+- Hardware físico del Wiimote.
+- Comunicación Bluetooth.
+- Adaptadores Bluetooth.
+- Drivers del sistema operativo.
+- Configuración interna de Dolphin.
+- Sensor Bar.
+- Acelerómetro.
+- Puntero infrarrojo.
+- Backend gráfico utilizado por el emulador.
+
+---
+
+# Resultados obtenidos
+
+Al finalizar esta etapa del proyecto se consiguió:
+
+## Conectividad
+
+✅ Nintendo Wii Remote original conectado mediante Bluetooth.  
+✅ Comunicación estable con Dolphin Emulator.  
+✅ Uso de adaptador Bluetooth dedicado.  
+✅ Compatibilidad comprobada tanto en pruebas de Windows como Linux.
+
+---
+
+## Controles
+
+✅ Botones principales funcionando.  
+✅ Nunchuk reconocido correctamente.  
+✅ Movimiento mediante acelerómetro funcionando.  
+✅ Uso de Sensor Bar para apuntado.  
+✅ Experiencia funcional utilizando Emulated Wii Remote con hardware real.
+
+---
+
+## Juegos probados
+
+### New Super Mario Bros. Wii
+
+Resultado:
+
+Funcionamiento exitoso.
+
+Se comprobó:
+
+- Movimiento del personaje.
+- Uso del giro del Wiimote.
+- Funcionamiento del Power-Up Helicóptero.
+
+Esta prueba confirmó que el Wiimote físico estaba enviando correctamente información de movimiento a Dolphin.
+
+---
+
+### Super Mario Galaxy
+
+Resultado:
+
+Funcionamiento parcial avanzado.
+
+Se consiguió:
+
+- Ejecutar el juego.
+- Utilizar Wiimote.
+- Utilizar Nunchuk.
+- Utilizar movimiento.
+- Utilizar puntero infrarrojo.
+
+También se resolvieron problemas iniciales de rendimiento mediante el cambio de:
+
+```
+OpenGL → Vulkan
+```
+
+La inestabilidad inicial del puntero mejoró mediante ajustes de configuración, aunque todavía queda trabajo para alcanzar una precisión idéntica a una consola Wii original.
+
+---
+
+# Principales descubrimientos
+
+## 1. El Wiimote no es un dispositivo Bluetooth convencional
+
+El proceso de conexión no funciona igual que un teclado, mouse o mando moderno.
+
+El método correcto depende de quién gestione la comunicación:
+
+- Sistema operativo.
+- Dolphin.
+- Bluetooth Passthrough.
+
+---
+
+## 2. Real Wii Remote no siempre es la mejor solución
+
+Una de las mayores conclusiones del proyecto fue descubrir que:
+
+Un Wiimote físico no obliga a utilizar Real Wii Remote.
+
+La configuración:
+
+```
+Wiimote físico + Emulated Wii Remote
+```
+
+puede ofrecer una experiencia completamente funcional.
+
+La diferencia está en cómo Dolphin procesa la información, no en el hardware utilizado.
+
+---
+
+## 3. Windows no fue la solución
+
+Durante la investigación se realizó una comparación temporal utilizando Windows.
+
+Inicialmente se pensó que Linux podía ser la causa de los problemas.
+
+Sin embargo, las pruebas demostraron que:
+
+- Windows no tenía una solución exclusiva.
+- La configuración funcional también estaba disponible en Linux.
+- El avance llegó al comprender Dolphin, no al cambiar de sistema operativo.
+
+---
+
+## 4. La Sensor Bar no es un sensor
+
+Otro descubrimiento fundamental fue comprender el funcionamiento real del sistema Wii.
+
+La Sensor Bar:
+
+- No detecta el mando.
+- No envía información.
+- No calcula la posición.
+
+Simplemente emite luz infrarroja.
+
+El Wiimote realiza el cálculo utilizando su cámara interna.
+
+---
+
+# Estado actual de Proyecto Nevada
+
+El proyecto alcanzó una primera versión funcional.
+
+Actualmente se dispone de:
+
+```
+Wiimote original
+        +
+Bluetooth
+        +
+Dolphin Emulator
+        +
+Sensor Bar
+        +
+Linux
+        =
+Experiencia Wii funcional
+```
+
+Sin embargo, todavía existen áreas pendientes de investigación.
+
+Proyecto Nevada no se considera terminado.
+
+Se considera una base estable para futuras pruebas.
+
+---
+
+# Trabajo futuro
+
+## 1. The Legend of Zelda: Skyward Sword
+
+Próxima prueba principal.
+
+Objetivo:
+
+Evaluar el funcionamiento de:
+
+- Wii MotionPlus.
+- Movimientos precisos de espada.
+- Giroscopio.
+- Acciones que requieren orientación absoluta del mando.
+
+Esta prueba será especialmente importante porque Skyward Sword utiliza MotionPlus como parte central de su jugabilidad.
+
+---
+
+## 2. MadWorld
+
+Segunda prueba importante.
+
+Objetivo:
+
+Evaluar juegos con una gran cantidad de movimientos rápidos.
+
+Se investigará:
+
+- Respuesta del acelerómetro.
+- Detección de movimientos bruscos.
+- Precisión durante acciones consecutivas.
+- Latencia del control.
+
+MadWorld será una prueba diferente a Galaxy porque depende menos del puntero y más de la interpretación de movimientos.
+
+---
+
+## 3. Optimización del puntero
+
+Aunque el sistema ya funciona, queda pendiente encontrar la configuración ideal para:
+
+- Precisión.
+- Estabilidad.
+- Sensación similar a una consola Wii real.
+
+---
+
+## 4. Investigación de MotionPlus
+
+Queda pendiente analizar:
+
+- Compatibilidad del accesorio.
+- Detección en Dolphin.
+- Diferencias entre Emulated Wii Remote y Real Wii Remote.
+- Juegos compatibles.
+
+---
+
+# Reflexión final
+
+Proyecto Nevada no fue únicamente un intento de conectar un mando antiguo.
+
+Fue un ejercicio práctico de ingeniería inversa y resolución de problemas.
+
+Cada obstáculo permitió comprender una parte diferente del sistema:
+
+- Bluetooth.
+- Linux.
+- Emulación.
+- Hardware físico.
+- Sensores.
+- Arquitectura de entrada.
+
+El objetivo final nunca fue solamente conseguir que un Wiimote apareciera conectado.
+
+El objetivo era comprender por qué funciona, por qué falla y cómo reproducir una experiencia cercana al hardware original.
+
+Proyecto Nevada continuará evolucionando con nuevas pruebas y documentación.
