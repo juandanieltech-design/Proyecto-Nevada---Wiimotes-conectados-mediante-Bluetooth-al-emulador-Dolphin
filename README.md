@@ -1112,3 +1112,194 @@ El avance ocurrió al descubrir la configuración correcta dentro de Dolphin.
 - Las hipótesis deben modificarse cuando las pruebas muestran nuevos resultados.
 
 ---
+
+---
+
+# Fase 7 – Regreso a Linux y configuración final de rendimiento y puntero
+
+## Objetivo
+
+Después de las pruebas realizadas en Windows, se decidió regresar al entorno Linux original para comprobar si la solución encontrada también podía aplicarse correctamente.
+
+La hipótesis final era:
+
+> El problema no estaba relacionado con Linux, sino con la configuración utilizada dentro de Dolphin.
+
+Esta fase tenía dos objetivos principales:
+
+- Evaluar el rendimiento de Dolphin en el portátil Linux.
+- Ajustar la precisión del puntero del Wiimote.
+
+---
+
+# Primera prueba de Super Mario Galaxy en Linux
+
+## Contexto
+
+A diferencia de las primeras pruebas, esta vez se utilizó el portátil principal con mayor capacidad de hardware.
+
+La configuración ya incluía:
+
+- Wiimote físico.
+- Sensor Bar original.
+- Nunchuk.
+- Dolphin Emulator.
+- Configuración Emulated Wii Remote con hardware real.
+
+La expectativa era comprobar si la experiencia obtenida en Windows podía reproducirse en Linux.
+
+---
+
+# Problema encontrado: congelación durante Super Mario Galaxy
+
+Durante la partida ocurrió un problema inesperado.
+
+La prueba avanzó correctamente hasta la zona donde Rosalina termina su primera interacción con Mario.
+
+Posteriormente, durante una sección donde era necesario utilizar el giro del Wiimote para romper cristales cerca del anillo estelar, ocurrió una degradación del rendimiento.
+
+Síntomas observados:
+
+- Ralentización fuerte.
+- Juego prácticamente congelado.
+- Caída de rendimiento durante una escena específica.
+
+Inicialmente parecía que podía tratarse de falta de potencia del equipo.
+
+Sin embargo, la investigación demostró que esa hipótesis era incorrecta.
+
+---
+
+# Investigación del problema gráfico
+
+## Hipótesis inicial
+
+La primera sospecha fue:
+
+> El hardware del portátil no tiene suficiente potencia para emular correctamente Wii.
+
+Esta hipótesis parecía razonable debido a la carga gráfica de Super Mario Galaxy.
+
+Sin embargo, al analizar la configuración se encontró que Dolphin estaba utilizando:
+
+```
+OpenGL
+```
+
+como backend gráfico.
+
+---
+
+# Solución encontrada: cambio a Vulkan
+
+Se realizó el cambio del backend gráfico:
+
+```
+OpenGL → Vulkan
+```
+
+Después del cambio:
+
+- La ralentización desapareció.
+- El juego continuó funcionando correctamente.
+- La experiencia fue mucho más estable.
+
+Esto confirmó que el problema no era la potencia del equipo.
+
+La causa estaba relacionada con la API gráfica utilizada por Dolphin.
+
+---
+
+# Ajuste del puntero infrarrojo
+
+## Problema encontrado
+
+Aunque el juego funcionaba, el puntero todavía presentaba cierta inestabilidad.
+
+El movimiento del cursor no era completamente natural y podía presentar pequeñas desviaciones.
+
+---
+
+# Investigación del comportamiento del puntero
+
+Durante las pruebas se analizó la relación entre:
+
+- Cámara infrarroja del Wiimote.
+- Sensor Bar.
+- Acelerómetro.
+- Configuración de Dolphin.
+
+Se descubrió que una dependencia excesiva del acelerómetro podía introducir movimientos no deseados.
+
+El acelerómetro sirve para detectar inclinaciones y movimientos del mando, pero no debe utilizarse como sustituto del sistema infrarrojo para apuntar.
+
+---
+
+# Configuración aplicada
+
+Para mejorar la estabilidad:
+
+- La dependencia del acelerómetro para el puntero fue reducida prácticamente a cero.
+- Se estableció un valor aproximado de:
+
+```
+Dependencia del acelerómetro:
+0% - 1%
+```
+
+El objetivo era permitir que:
+
+```
+Puntero = Sensor infrarrojo
+```
+
+en lugar de:
+
+```
+Puntero = Sensor infrarrojo + correcciones constantes del acelerómetro
+```
+
+---
+
+# Resultado final de la fase
+
+Después de estos ajustes se consiguió una mejora significativa:
+
+✅ Super Mario Galaxy funcionando en Linux.  
+✅ Wiimote físico funcionando.  
+✅ Movimiento funcionando.  
+✅ Nunchuk funcionando.  
+✅ Puntero mejorado.  
+✅ Rendimiento estable utilizando Vulkan.
+
+---
+
+# Conclusión de Proyecto Nevada hasta esta etapa
+
+Las pruebas realizadas demostraron que el problema inicial no era Linux.
+
+El verdadero desafío estaba en comprender la interacción entre:
+
+- Hardware Bluetooth.
+- Drivers del sistema.
+- Configuración de Dolphin.
+- Método de entrada utilizado.
+- Backend gráfico.
+- Sensores del Wiimote.
+
+La solución final no fue cambiar de sistema operativo.
+
+La solución fue comprender correctamente cada componente del sistema.
+
+---
+
+# Lecciones aprendidas
+
+- Un problema de rendimiento no siempre significa falta de potencia.
+- La API gráfica utilizada por el emulador puede cambiar completamente la experiencia.
+- Vulkan ofrece mejores resultados en esta configuración que OpenGL.
+- El puntero del Wiimote depende principalmente del sistema infrarrojo.
+- El acelerómetro debe utilizarse para movimiento, no como sustituto del puntero.
+- Una configuración correcta puede ser más importante que cambiar de hardware.
+
+---
