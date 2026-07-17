@@ -128,8 +128,44 @@ info <MAC>: Muestra información detallada de un dispositivo específico usando 
 
 # Conceptos sobre Wiimote en Linux / Retroarch / Dolphin
 
-## Wiimote Emulado
-Control remoto de Wii simulado por software. No requiere hardware físico, se maneja con teclado, mouse o joystick. Útil para probar juegos sin tener un Wiimote real, pero con precisión y respuesta limitadas.
+## Wiimote Emulado (Emulated Wii Remote)
+
+En Dolphin, **Emulated Wii Remote** no significa necesariamente utilizar un teclado o un mando convencional.
+
+Se trata de un modo de funcionamiento en el que **Dolphin interpreta y procesa todas las entradas del control**, independientemente del dispositivo utilizado.
+
+Esto permite utilizar:
+
+- Un teclado y ratón.
+- Un gamepad convencional.
+- Un Nintendo Wii Remote físico conectado por Bluetooth.
+- Otros dispositivos compatibles.
+
+Cuando se utiliza un **Wiimote físico** en este modo, Dolphin recibe los datos enviados por el sistema operativo (Linux, Windows, etc.) y los traduce internamente al comportamiento esperado por la consola Wii.
+
+Este modo ofrece una gran flexibilidad, ya que permite reasignar botones, ajustar sensores, modificar la sensibilidad del puntero e incluso combinar diferentes dispositivos de entrada.
+
+**Durante Proyecto Nevada, esta fue la solución finalmente adoptada**, ya que ofrecía una excelente compatibilidad con el hardware disponible y evitaba algunos de los problemas encontrados con Bluetooth Passthrough.
+
+> **Nota importante**
+>
+> Muchas personas creen que "Emulated Wii Remote" significa "no utilizar un Wiimote físico". Esto es incorrecto.
+>
+> En Dolphin, un Nintendo Wii Remote original puede utilizarse tanto en modo **Emulated Wii Remote** como en modo **Real Wii Remote**, dependiendo de cómo se quiera gestionar la comunicación con el mando.
+>
+> ## Wiimote Real (Real Wii Remote)
+
+En este modo, Dolphin intenta comunicarse directamente con el Nintendo Wii Remote como si fuera una consola Wii real.
+
+El emulador deja de interpretar las entradas y delega gran parte de la comunicación al propio mando mediante Bluetooth.
+
+Este modo suele ofrecer una experiencia muy cercana al hardware original, especialmente con accesorios oficiales como MotionPlus.
+
+Sin embargo, también depende en mayor medida del adaptador Bluetooth, de los controladores del sistema operativo y de la compatibilidad del hardware utilizado.
+
+En algunos equipos puede requerir configuraciones adicionales o presentar problemas de detección y permisos.
+
+Durante Proyecto Nevada también se investigó este modo de funcionamiento para comprender sus ventajas, limitaciones y diferencias frente al Wiimote Emulado.
 
 ## Wiimote Real
 Control físico original de Nintendo Wii (o third-party compatible). Se conecta por Bluetooth al PC. Ofrece la experiencia auténtica con sensor de movimiento, apuntado y botones físicos. Requiere emparejamiento y configuración adecuada.
