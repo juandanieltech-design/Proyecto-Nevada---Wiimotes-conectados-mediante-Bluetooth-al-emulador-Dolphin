@@ -510,3 +510,208 @@ Durante el proyecto se disponía de una Sensor Bar original procedente de una Wi
 Esto significaba que el sistema de apuntado ya estaba resuelto.
 
 El verdadero reto pasaba a ser conseguir que el Wiimote pudiera comunicarse correctamente con Dolphin mediante Bluetooth, aprovechando la barra sensora original para proporcionar el puntero infrarrojo.
+
+---
+
+# Fase 4 – Migración a Dolphin y análisis del hardware Bluetooth
+
+## Objetivo
+
+Después de las limitaciones encontradas durante las pruebas con RetroArch, el siguiente paso fue investigar Dolphin Emulator como plataforma principal.
+
+El objetivo era conseguir una experiencia más cercana a una consola Wii real utilizando:
+
+- Nintendo Wii Remote original.
+- Sensor Bar original.
+- Bluetooth del ordenador.
+- Dolphin Emulator.
+
+Durante esta fase se investigaron dos caminos diferentes:
+
+- Emulated Wii Remote utilizando un Wiimote físico.
+- Real Wii Remote utilizando comunicación directa con Dolphin.
+
+---
+
+# Primer intento: Emulated Wii Remote
+
+## Objetivo
+
+Utilizar un Nintendo Wii Remote físico conectado al sistema y permitir que Dolphin interpretara sus entradas.
+
+Esta alternativa parecía una solución viable porque permitía:
+
+- Mantener el Wiimote original.
+- Configurar manualmente controles.
+- Utilizar Dolphin como intermediario entre Linux y el mando.
+
+## Problema encontrado
+
+Durante las primeras pruebas se llegó a un punto donde parecía existir un bloqueo.
+
+El Wiimote podía ser detectado por Linux, pero la experiencia todavía no era completa.
+
+Algunos elementos fundamentales para una experiencia Wii real seguían sin estar resueltos:
+
+- Movimiento.
+- Puntero infrarrojo.
+- Comunicación completa con Dolphin.
+
+En este momento todavía no se había identificado que existían configuraciones adicionales relacionadas con permisos y acceso al dispositivo Bluetooth.
+
+Como consecuencia, el problema parecía estar relacionado con la comunicación entre Linux y Dolphin.
+
+---
+
+# Investigación del adaptador Bluetooth
+
+## Motivo del cambio de estrategia
+
+Al encontrar limitaciones con la configuración inicial, surgió una nueva hipótesis:
+
+El problema podía estar relacionado con el hardware Bluetooth utilizado.
+
+Aunque el Bluetooth integrado del portátil permitía detectar dispositivos, era necesario comprobar si un adaptador dedicado ofrecía mayor compatibilidad con Dolphin y los Wiimote originales.
+
+Por este motivo se adquirió un adaptador Bluetooth USB adicional.
+
+---
+
+# Hardware Bluetooth utilizado
+
+## Bluetooth interno del equipo
+
+El equipo utilizado durante Proyecto Nevada cuenta con un controlador inalámbrico:
+
+```
+Realtek RTL8852BE PCIe 802.11ax Wireless Network Controller
+```
+
+Este dispositivo integra conectividad inalámbrica y Bluetooth.
+
+Durante las pruebas Linux detectó un controlador Bluetooth interno:
+
+```
+Controller 24:B2:B9:1A:5E:B6
+```
+
+Características detectadas:
+
+- Bluetooth versión: 5.x
+- Fabricante: Realtek
+- Interfaz: PCIe
+- Controlador Linux utilizado: Realtek Bluetooth stack mediante btusb
+
+---
+
+## Adaptador Bluetooth USB dedicado
+
+Durante la investigación se incorporó un adaptador externo:
+
+```
+Realtek Semiconductor Corp. Bluetooth 5.3 Radio
+ID USB: 0bda:a729
+```
+
+Características detectadas:
+
+- Interfaz: USB
+- Fabricante: Realtek
+- Bluetooth: 5.3
+- Identificador USB: 0bda:a729
+
+Linux también detectó otro dispositivo Bluetooth Realtek:
+
+```
+Realtek Semiconductor Corp. Bluetooth Radio
+ID USB: 0bda:4853
+```
+
+Esto permitió identificar la presencia de múltiples dispositivos Bluetooth Realtek conectados al sistema.
+
+---
+
+# Estado de los controladores Bluetooth
+
+El sistema Linux detectó correctamente dos controladores Bluetooth independientes:
+
+```
+Controller 8A:88:4B:A2:CB:C0
+Controller 24:B2:B9:1A:5E:B6
+```
+
+Mediante `btmgmt` se confirmó:
+
+## Controlador hci1
+
+```
+version 10
+manufacturer 93
+```
+
+Con soporte para:
+
+- Bluetooth clásico BR/EDR.
+- Bluetooth Low Energy.
+- Secure Connections.
+- Discoverable.
+- Bondable.
+
+## Controlador hci0
+
+```
+version 11
+manufacturer 93
+```
+
+Con soporte adicional para:
+
+- Bluetooth Low Energy avanzado.
+- Wide Band Speech.
+- CIS Central.
+- CIS Peripheral.
+
+---
+
+# Investigación realizada
+
+Con la incorporación del adaptador externo se comenzó a comparar el comportamiento entre:
+
+- Bluetooth interno del portátil.
+- Adaptador Bluetooth USB dedicado.
+
+El objetivo era determinar si las diferencias de hardware afectaban:
+
+- Detección del Wiimote.
+- Emparejamiento.
+- Comunicación con Dolphin.
+- Compatibilidad con Real Wii Remote.
+- Bluetooth Passthrough.
+
+---
+
+# Descubrimiento importante
+
+Durante esta etapa se comprobó que el adaptador Bluetooth era solamente una parte del problema.
+
+Aunque el hardware tiene una influencia importante, la comunicación correcta del Wiimote depende de varios factores:
+
+- Adaptador Bluetooth compatible.
+- Controladores del sistema operativo.
+- Permisos de acceso.
+- Método utilizado por Dolphin.
+- Configuración seleccionada dentro del emulador.
+
+La investigación demostró que cambiar hardware podía mejorar la compatibilidad, pero no solucionaba automáticamente todos los problemas.
+
+---
+
+# Lecciones aprendidas
+
+- Un adaptador Bluetooth compatible es necesario, pero no garantiza por sí solo el funcionamiento correcto.
+- Los Wiimote originales requieren una comunicación diferente a la de un dispositivo Bluetooth convencional.
+- Tener varios adaptadores Bluetooth conectados puede afectar qué controlador utiliza el sistema.
+- Antes de cambiar hardware es necesario comprender la configuración del software.
+- En proyectos de hardware real, los problemas normalmente aparecen por la interacción entre varios componentes, no por una única causa.
+
+---
