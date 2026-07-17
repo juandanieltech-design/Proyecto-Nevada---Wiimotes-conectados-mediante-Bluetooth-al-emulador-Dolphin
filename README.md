@@ -456,3 +456,57 @@ Esta conclusión llevó a replantear completamente la estrategia del proyecto y 
 - El soporte para sensores de movimiento y puntero infrarrojo era el principal obstáculo.
 - Mantener toda la biblioteca en RetroArch seguía siendo una idea atractiva por su integración con Steam Cloud y su interfaz unificada, pero la prioridad pasó a ser conseguir la máxima compatibilidad con los juegos de Wii.
 - Para una experiencia auténtica con un Nintendo Wii Remote original, Dolphin Standalone ofrecía herramientas mucho más avanzadas.
+
+# Comprendiendo la Sensor Bar
+
+Uno de los conceptos más importantes aprendidos durante Proyecto Nevada fue el funcionamiento real de la Sensor Bar.
+
+Al principio es fácil asumir que la barra sensora detecta la posición del Wiimote o que se comunica con él mediante Bluetooth.
+
+Ninguna de estas afirmaciones es correcta.
+
+## ¿Qué hace realmente la Sensor Bar?
+
+La Sensor Bar no transmite datos.
+
+No contiene sensores de movimiento.
+
+No conoce la posición del mando.
+
+Su única función consiste en emitir dos grupos de luz infrarroja situados en los extremos de la barra.
+
+## ¿Quién detecta realmente el movimiento?
+
+El verdadero sensor se encuentra dentro del propio Nintendo Wii Remote.
+
+En la parte frontal del mando existe una cámara infrarroja capaz de detectar estos dos puntos luminosos.
+
+A partir de su posición relativa, el Wiimote calcula hacia dónde está apuntando.
+
+Posteriormente transmite esa información a la consola Wii o al emulador mediante Bluetooth.
+
+En otras palabras:
+
+La Sensor Bar únicamente emite luz.
+
+Toda la inteligencia del sistema de apuntado se encuentra dentro del Wiimote.
+
+## Una consecuencia interesante
+
+Como la Sensor Bar únicamente emite luz infrarroja, puede sustituirse por cualquier fuente que genere dos puntos infrarrojos suficientemente visibles.
+
+Durante años la comunidad ha demostrado que incluso dos velas pueden utilizarse para apuntar con el Wiimote.
+
+Las velas no reemplazan la barra porque tengan electrónica.
+
+La reemplazan porque producen dos puntos de luz que la cámara infrarroja del Wiimote puede detectar.
+
+## Influencia en Proyecto Nevada
+
+Comprender este funcionamiento cambió completamente la dirección de la investigación.
+
+Durante el proyecto se disponía de una Sensor Bar original procedente de una Wii U.
+
+Esto significaba que el sistema de apuntado ya estaba resuelto.
+
+El verdadero reto pasaba a ser conseguir que el Wiimote pudiera comunicarse correctamente con Dolphin mediante Bluetooth, aprovechando la barra sensora original para proporcionar el puntero infrarrojo.
