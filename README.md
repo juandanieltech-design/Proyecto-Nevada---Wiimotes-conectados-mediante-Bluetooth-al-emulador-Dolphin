@@ -372,3 +372,87 @@ Esta conclusión llevó a replantear completamente la estrategia del proyecto y 
 - El soporte para sensores de movimiento y puntero infrarrojo era el principal obstáculo.
 - Mantener toda la biblioteca en RetroArch seguía siendo una idea atractiva por su integración con Steam Cloud y su interfaz unificada, pero la prioridad pasó a ser conseguir la máxima compatibilidad con los juegos de Wii.
 - Para una experiencia auténtica con un Nintendo Wii Remote original, Dolphin Standalone ofrecía herramientas mucho más avanzadas.
+
+---
+
+## Fase 3 – Investigación en RetroArch
+
+### Objetivo
+
+Determinar si RetroArch podía ofrecer una experiencia completa para jugar títulos de Nintendo Wii utilizando un Nintendo Wii Remote original.
+
+### ¿Por qué comenzar con RetroArch?
+
+Antes de utilizar Dolphin Standalone, la intención era mantener toda la biblioteca de emulación dentro de un único entorno.
+
+RetroArch ofrecía varias ventajas importantes:
+
+- Integración con Steam.
+- Sincronización de partidas mediante Steam Cloud (save states y archivos `.sav`).
+- Una única interfaz para múltiples consolas y emuladores.
+- Organización centralizada de toda la colección de juegos.
+- Configuración unificada para distintos sistemas.
+
+Desde un punto de vista práctico, mantener toda la emulación en RetroArch simplificaba considerablemente la administración de la biblioteca.
+
+### Primeras pruebas
+
+Las primeras pruebas fueron prometedoras.
+
+Steam detectó correctamente el Nintendo Wii Remote como un dispositivo de entrada.
+
+Como consecuencia, RetroArch también era capaz de reconocer el mando.
+
+Sin embargo, aparecieron inmediatamente las primeras diferencias respecto al comportamiento esperado de una consola Wii real.
+
+### Primer problema detectado
+
+Los botones **1** y **2** aparecían invertidos respecto a su funcionamiento habitual en Wii.
+
+Aunque este problema podía corregirse mediante remapeos, evidenciaba que el Wiimote estaba siendo tratado como un dispositivo de entrada genérico y no como un mando de Wii con soporte específico.
+
+### Investigación del núcleo Dolphin para RetroArch
+
+La siguiente etapa consistió en analizar las posibilidades de configuración del núcleo Dolphin integrado en RetroArch.
+
+Se comprobó que las opciones disponibles eran considerablemente más limitadas que las presentes en Dolphin Standalone.
+
+Entre las configuraciones disponibles se encontraban:
+
+- Wiimote.
+- Wiimote horizontal (Sideways Wiimote).
+- Wiimote + Nunchuk.
+- Classic Controller.
+- Classic Controller Pro.
+
+A primera vista parecía suficiente para la mayoría de juegos.
+
+Sin embargo, todas estas configuraciones compartían una limitación muy importante.
+
+### La limitación crítica
+
+Ninguna de las configuraciones disponibles permitía utilizar correctamente:
+
+- el puntero infrarrojo (IR Pointer);
+- los sensores de movimiento del Wiimote;
+- la emulación completa del comportamiento del mando original.
+
+Como consecuencia, juegos que dependen de estas funciones, como **Super Mario Galaxy**, no podían jugarse de forma adecuada.
+
+RetroArch permitía seleccionar diferentes perfiles de mando, pero no ofrecía el nivel de integración que sí proporciona Dolphin Standalone para el control por movimiento.
+
+### Resultado
+
+Las pruebas demostraron que RetroArch era perfectamente válido para utilizar el núcleo Dolphin en situaciones sencillas.
+
+Sin embargo, cuando el objetivo era reproducir la experiencia completa de una Nintendo Wii utilizando un Wiimote original, sus opciones resultaban insuficientes.
+
+Esta conclusión llevó a replantear completamente la estrategia del proyecto y centrar la investigación en Dolphin Standalone.
+
+### Lecciones aprendidas
+
+- Que un mando sea reconocido por Steam no implica que todas sus funciones estén disponibles en un emulador.
+- RetroArch detectaba correctamente el Wiimote, pero no ofrecía una implementación completa de sus características.
+- El soporte para sensores de movimiento y puntero infrarrojo era el principal obstáculo.
+- Mantener toda la biblioteca en RetroArch seguía siendo una idea atractiva por su integración con Steam Cloud y su interfaz unificada, pero la prioridad pasó a ser conseguir la máxima compatibilidad con los juegos de Wii.
+- Para una experiencia auténtica con un Nintendo Wii Remote original, Dolphin Standalone ofrecía herramientas mucho más avanzadas.
