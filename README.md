@@ -187,3 +187,184 @@ Barra con LEDs infrarrojos que se coloca encima o debajo de la pantalla. El Wiim
 
 ## MotionPlus
 Accesorio (o integrado en mandos posteriores) que añade un giroscopio de 3 ejes al Wiimote, permitiendo detectar rotaciones y movimientos angulares con mucha mayor precisión. Fundamental para juegos que requieren movimientos exactos (Wii Sports Resort, Zelda Skyward Sword). En Linux requiere soporte del driver (hid_wiimote) o de bibliotecas como xwiimote para leer sus datos correctamente.
+
+Fase 1 – Definición del problema
+Objetivo
+
+Conseguir utilizar un Nintendo Wii Remote original en Linux para jugar títulos de Nintendo Wii desde el PC.
+
+Hipótesis inicial
+
+Al principio se asumió que el proceso sería similar al de cualquier otro dispositivo Bluetooth.
+
+Resultado
+
+La investigación demostró rápidamente que el Wiimote utiliza un comportamiento Bluetooth particular y que no puede tratarse exactamente igual que un teclado, un ratón o un mando convencional.
+
+Lecciones aprendidas
+El Wiimote no es un dispositivo Bluetooth "común".
+El método de emparejamiento depende del software que vaya a utilizar el mando.
+Fase 2 – Primer contacto con el Wiimote
+Objetivo
+
+Conseguir que Linux detectara correctamente el mando.
+
+Qué se intentó
+Emparejar el Wiimote desde Linux.
+Permitir que el sistema operativo lo reconociera.
+Resolver la solicitud del código PIN.
+Resultado
+
+El Wiimote consiguió ser detectado por el sistema operativo.
+
+Sin embargo, la detección del dispositivo no garantizaba que pudiera utilizarse correctamente desde un emulador.
+
+Lecciones aprendidas
+Detectar el Wiimote no significa que esté listo para jugar.
+El código PIN puede aparecer dependiendo del método utilizado.
+No todos los métodos de emparejamiento producen el mismo resultado.
+Fase 3 – Investigación en RetroArch
+Objetivo
+
+Utilizar el Wiimote dentro de RetroArch.
+
+Qué se intentó
+
+La intención inicial era mantener toda la experiencia dentro de RetroArch para aprovechar el ecosistema ya configurado.
+
+Se realizaron diferentes pruebas para conseguir que RetroArch reconociera el mando.
+
+Resultado
+
+Aunque el Wiimote podía conectarse al sistema operativo, RetroArch no llegó a ofrecer una experiencia funcional con el hardware disponible.
+
+Esto llevó a replantear la estrategia del proyecto.
+
+Lecciones aprendidas
+Un dispositivo Bluetooth correctamente conectado no implica compatibilidad con todos los emuladores.
+Cada emulador implementa el soporte para Wiimote de manera diferente.
+Fue necesario buscar una alternativa especializada.
+Fase 4 – Migración a Dolphin
+Objetivo
+
+Investigar el soporte nativo que ofrece Dolphin para Nintendo Wii.
+
+Qué se descubrió
+
+Durante esta etapa apareció uno de los conceptos más importantes del proyecto:
+
+Emulated Wii Remote.
+Real Wii Remote.
+
+Inicialmente ambos conceptos parecían describir tipos distintos de mandos.
+
+La investigación demostró que en realidad representan dos formas diferentes en las que Dolphin procesa la comunicación con el control.
+
+Lecciones aprendidas
+Un Wiimote físico también puede utilizarse como Emulated Wii Remote.
+La diferencia no está en el hardware, sino en cómo Dolphin gestiona la entrada.
+Fase 5 – Investigación del Bluetooth
+Objetivo
+
+Comprender por qué algunos métodos funcionaban y otros no.
+
+Qué se investigó
+BlueZ.
+Adaptadores Bluetooth.
+Drivers del kernel.
+Bibliotecas especializadas.
+
+También se analizaron las diferencias entre distintos chipsets Bluetooth.
+
+Resultado
+
+Se comprobó que el adaptador Bluetooth tiene un impacto directo sobre la compatibilidad con Dolphin.
+
+No todos los adaptadores ofrecen el mismo comportamiento.
+
+Lecciones aprendidas
+El hardware Bluetooth importa.
+La calidad del chipset puede modificar completamente la experiencia.
+Fase 6 – Bluetooth Passthrough
+Objetivo
+
+Evaluar si Bluetooth Passthrough ofrecía mejores resultados.
+
+Qué ocurrió
+
+Se investigó el funcionamiento interno de Bluetooth Passthrough.
+
+Aunque este modo intenta reproducir el comportamiento de una consola Wii real, también introduce nuevos requisitos relacionados con el adaptador Bluetooth y los permisos del sistema.
+
+Resultado
+
+En el hardware utilizado durante Proyecto Nevada, esta no terminó siendo la mejor solución.
+
+Finalmente se optó por utilizar Emulated Wii Remote con un Wiimote físico.
+
+Lecciones aprendidas
+
+Bluetooth Passthrough no es necesariamente la mejor opción.
+
+La solución depende del hardware disponible.
+
+Fase 7 – Sensor Bar
+Objetivo
+
+Comprender el funcionamiento del apuntado.
+
+Qué se descubrió
+
+Uno de los mayores malentendidos consiste en pensar que la Sensor Bar envía información al ordenador.
+
+En realidad sucede lo contrario.
+
+La Sensor Bar únicamente emite luz infrarroja.
+
+Es el Wiimote quien detecta dicha luz utilizando su cámara infrarroja integrada.
+
+Lecciones aprendidas
+
+La Sensor Bar no transmite datos.
+
+Toda la inteligencia del sistema de apuntado se encuentra dentro del propio Wiimote.
+
+Fase 8 – Primera prueba exitosa
+Objetivo
+
+Conseguir controlar un juego real.
+
+Resultado
+
+Por primera vez el Wiimote consiguió utilizarse correctamente en Dolphin.
+
+El sistema reconocía:
+
+botones;
+Nunchuk;
+puntero (con la barra sensora).
+
+La experiencia se acercaba significativamente a la de una consola Wii real.
+
+Lecciones aprendidas
+
+El verdadero objetivo nunca fue conectar el mando.
+
+El objetivo era jugar.
+
+Fase 9 – MotionPlus
+Objetivo
+
+Comprobar la compatibilidad con juegos que utilizan MotionPlus.
+
+Qué ocurrió
+
+Durante las pruebas se comprobó que algunos títulos, como The Legend of Zelda: Skyward Sword, requieren MotionPlus para poder jugar correctamente.
+
+No se trataba de un error de Dolphin ni del proceso de conexión, sino de un requisito propio del juego.
+
+Lecciones aprendidas
+
+No todos los juegos utilizan el mismo conjunto de funciones del Wiimote.
+
+Es necesario verificar los requisitos específicos de cada título antes de asumir que existe un fallo en la configuración.
